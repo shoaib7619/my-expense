@@ -5,7 +5,7 @@ const cors = require('cors');
 const  dotenv= require('dotenv')
 const connectDb = require('./config/connection')
 const path = require('path')
-dotenv.config
+dotenv.config()
 
 //database connection
 connectDb()
@@ -22,11 +22,14 @@ app.use(cors())
 app.use(express.static(path.join(__dirname, "./client/build")));
 
 app.get("/", function(req, res) {
-  res.sendFile(path.join(__dirname, "build", "./client/build/index.html"));
+  res.sendFile(path.join(__dirname, "./client/build/index.html"));
 });
 
-app.get("/*", function(req, res) {
-  res.sendFile(path.join(__dirname, "build", "./client/build/index.html"));
+app.get("/*", function(_, res) {
+  res.sendFile(path.join(__dirname,"./client/build/index.html"),function(err){
+     res.status(500).send(err)
+  }
+    );
 });
 
 //routes for user
@@ -37,7 +40,7 @@ app.use("/api/v1/transections", require("./routes/transectionRoutes"));
 
 //port
 
-const PORT = 8080 || process.env.PORT
+const PORT =  process.env.PORT || 8080
 
 //listen function
 app.listen(PORT, () => {
