@@ -20,10 +20,10 @@ app.use(cors())
 
 
 //routes for user
-app.use('/api/v1/users',require('./routes/userRoute'))
+app.use('/users',require('./routes/userRoute'))
 
 //routes for transaction
-app.use('/api/v1/transaction',require('./routes/transactionRoute'))
+app.use('/transaction',require('./routes/transactionRoute'))
 
 //static file
 app.use(express(path.join(__dirname,'./client/build')))
