@@ -1,45 +1,41 @@
-const express = require('express')
-const morgan = require('morgan')
+const express = require('express');
+const morgan = require('morgan');
 const cors = require('cors');
-const  dotenv= require('dotenv')
-const connectDb = require('./config/connection')
-const path = require('path')
+const dotenv = require('dotenv');
+const connectDb = require('./config/connection');
+const path = require('path');
 
 dotenv.config();
 
+// Database connection
+connectDb();
 
-//database connection
-connectDb()
+// Rest object
+const app = express();
 
-//rest object
-const app=express()
+// Middleware
+app.use(morgan('dev'));
+app.use(express.json());
+app.use(cors());
 
-//middleware
-app.use(morgan('dev'))
-app.use(express.json())
-app.use(cors())
-
-
-//routes for user
-app.use('/api/v1/users',require('.routes/userRoute'))
+// Routes for user
+app.use('/api/v1/users', require('./routes/userRoutes'));
 
 // Transactions routes
 app.use('/api/v1/transactions', require('./routes/transactionsRoutes'));
 
-//static file
-app.use(express(path.join(__dirname,'./client/build')))
+// Serve static files
+app.use(express.static(path.join(__dirname, './client/build')));
 
 // Catch-all route for serving React app
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, './client/build/index.html'));
 });
 
+// Port
+const PORT = process.env.PORT || 8080;
 
-//port
-
-const PORT = 8080 || process.env.PORT
-
-//listen function
+// Listen function
 app.listen(PORT, () => {
-    console.log(`Daily Expense Management is listening on port  http://localhost:${PORT}`)
-  })
+  console.log(`Daily Expense Management is listening on port http://localhost:${PORT}`);
+});
