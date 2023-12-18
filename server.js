@@ -20,10 +20,10 @@ app.use(cors())
 
 
 //routes for user
-app.use("/api/v1/users", require("./routes/userRoute"));
+app.use("/users", require("./routes/userRoute"));
 
 //transections routes
-app.use("/api/v1/transections", require("./routes/transectionRoutes"));
+app.use("/transections", require("./routes/transectionRoutes"));
 //static file
 app.use(express(path.join(__dirname,'./client/build')))
 
