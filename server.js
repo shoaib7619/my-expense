@@ -21,7 +21,7 @@ app.use(cors())
 
 
 //routes for user
-app.use('/api/v1/users',require('.routes/userRoute'))
+app.use('/api/v1/users',require('.routes/usersRoutes'))
 
 // Transactions routes
 app.use('/api/v1/transactions', require('./routes/transactionsRoutes'));
