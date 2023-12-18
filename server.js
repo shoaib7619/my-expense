@@ -27,7 +27,7 @@ app.use("/api/v1/transections", require("./routes/transectionRoutes"));
 //static file
 app.use(express(path.join(__dirname,'./client/build')))
 
-app.get('*',function(req,res){
+app.get('/*',function(req,res){
   res.sendFile(path.join(__dirname,'./client/build/index.html'))
 })
 
