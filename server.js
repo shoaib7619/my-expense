@@ -18,18 +18,22 @@ app.use(morgan('dev'))
 app.use(express.json())
 app.use(cors())
 
+//static file
+app.use(express.static(path.join(__dirname, "./client/build")));
+
+app.get("/", function(req, res) {
+  res.sendFile(path.join(__dirname, "build", "./client/build/index.html"));
+});
+
+app.get("/*", function(req, res) {
+  res.sendFile(path.join(__dirname, "build", "./client/build/index.html"));
+});
 
 //routes for user
 app.use("/api/v1/users", require("./routes/userRoute"));
 
 //transections routes
 app.use("/api/v1/transections", require("./routes/transectionRoutes"));
-//static file
-app.use(express(path.join(__dirname,'./client/build')))
-
-app.get('/*',function(req,res){
-  res.sendFile(path.join(__dirname,'./client/build/index.html'))
-})
 
 //port
 
