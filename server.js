@@ -19,7 +19,7 @@ app.use(express.json());
 app.use(cors());
 
 // Routes for user
-app.use('/api/v1/users', require('./routes/userRoutes'));
+app.use('/api/v1/user', require('./routes/userRoutes'));
 
 // Transactions routes
 app.use('/api/v1/transactions', require('./routes/transactionsRoutes'));
